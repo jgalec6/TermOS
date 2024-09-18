@@ -1,19 +1,14 @@
 import curses
 import time
 
-def boot_screen(stdscr):
-    # Clean screen
+def boot_screen(stdscr, boot_time):
     stdscr.clear()
 
-    boot_time = 5
     height, width = stdscr.getmaxyx()
     message = "Booting up..."
 
-    # Get the screen center
     y = height // 2
     x = (width - len(message)) // 2
-
-    # Show the message
     stdscr.addstr(y, x, message)
 
     stdscr.refresh()
@@ -21,8 +16,24 @@ def boot_screen(stdscr):
     stdscr.clear()
     stdscr.refresh()
 
-def main():
-    curses.wrapper(boot_screen)
+def welcome_screen(stdscr):
+    stdscr.border()
+
+    height, width = stdscr.getmaxyx()
+    message = "Welcome to TermOS!"
+
+    y = height // 2
+    x = (width - len(message)) // 2
+    stdscr.addstr(y, x, message)
+    
+    stdscr.refresh()
+    stdscr.getch()
+
+def main(stdscr):
+    boot_time = 5
+
+    boot_screen(stdscr, boot_time)
+    welcome_screen(stdscr)
 
 if __name__ == "__main__":
-    main()
+    curses.wrapper(main)
