@@ -1,60 +1,61 @@
 # TermOS
 
-TermOS es un proyecto que busca emular la interfaz y el comportamiento de un sistema operativo a través de una interfaz gráfica por terminal (TUI).
+TermOS is a project that attempts to emulate the interface and the behavior of an operating system through a terminal graphical interface (TUI).
 
-## Requisitos
+## Requirements
 
-- Python 3.12
-## Instalación
+- Python 3.12 🐍
 
-1. Clona el repositorio en tu máquina local:
+## Usage
+
+1. Clone the repository on your local machine
 
 ```bash
 git clone https://github.com/jgalec6/TermOS.git
 ```
 
-2. Navega al directorio del proyecto:
+2. Go to the project directory
 
 ```bash
 cd TermOS
 ```
 
-3. Crea un entorno virtual (opcional pero recomendado):
+3. Create a virtual environment
 
 ```bash
 python -m venv venv
 ```
 
-4. Activa el entorno virtual:
+4. Enable the virtual environment
 
-   - En Windows:
+   - Windows
 
    ```bash
    venv\Scripts\activate
    ```
 
-   - En macOS/Linux:
+   - MacOS/Linux
 
    ```bash
    source venv/bin/activate
    ```
 
-5. Instala las dependencias del proyecto:
+5. Install project dependencies
 
 ```bash
 pip install -r requirements.txt
 ```
 
-## Uso
+## Usage
 
-Una vez instaladas las dependencias, se puede ejecutar el proyecto utilizando:
+After installing the dependencies, you can run the project using
 
 ```bash
 python main.py
 ```
 
-Recuerda activar el entorno virtual antes de ejecutar el proyecto si lo creaste.
+⚠ Remember to activate the virtual environment (if you created it) before running the project
 
-## Licencia
+## License
 
-Este proyecto está licenciado bajo la licencia MIT. Ver el archivo [LICENSE](LICENSE) para más detalles.
+This project is licensed under the MIT license. See the [LICENSE](LICENSE) file for more details.
