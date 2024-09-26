@@ -56,10 +56,9 @@ def main_screen(stdscr):
     # Remove "attr" from "background" applied to the current window
     stdscr.attroff(curses.color_pair(1))
     stdscr.refresh()
-
+    
     while True:
         key = stdscr.getch()
-        
         # Ctrl + Q (ASCII 17) to exit
         if key == 17:
             break
@@ -91,15 +90,19 @@ def login_screen(stdscr):
             stdscr.addch(login_border_y, login_border_x + x, curses.ACS_HLINE)
             stdscr.addch(login_border_y + border_height - 1, login_border_x + x, curses.ACS_HLINE)
 
-        # TODO: Don't put a fixed X when `addstr` or `move`, but based on the length of the str
-
-        # User input
-        stdscr.addstr(login_border_y + 2, login_border_x + 2, "User:")
         curses.curs_set(1)
-        stdscr.move(login_border_y + 2, login_border_x + 8)
+        
+        # User input
+        user_str = "User:"
         user_input = ""
+        # User input position
+        user_input_y = login_border_y + 2
+        user_input_x = login_border_x + 2 + len(user_str) + 1
+        
+        stdscr.addstr(user_input_y, login_border_x + 2, user_str)
+        stdscr.move(user_input_y , user_input_x)
 
-        # TODO: Optimize that shitty `while` with a function
+        # Gets the input
         while True:
             key = stdscr.getch()
 
@@ -110,20 +113,25 @@ def login_screen(stdscr):
             elif key == 127:
                 if user_input:
                     user_input = user_input[:-1]
-                    stdscr.addstr(login_border_y + 2, login_border_x + 8, " " * 20)
-                    stdscr.addstr(login_border_y + 2, login_border_x + 8, user_input)
-                    stdscr.move(login_border_y + 2, login_border_x + 8 + len(user_input))
+                    stdscr.addstr(user_input_y, user_input_x, " " * 20)
+                    stdscr.addstr(user_input_y, user_input_x, user_input)
+                    stdscr.move(user_input_y, user_input_x + len(user_input))
             else:
                 user_input += chr(key)
-                stdscr.addstr(login_border_y + 2, login_border_x + 8, user_input)
-                stdscr.move(login_border_y + 2, login_border_x + 8 + len(user_input))
+                stdscr.addstr(user_input_y, user_input_x, user_input)
+                stdscr.move(user_input_y, user_input_x + len(user_input))
 
         # Pass input
-        stdscr.addstr(login_border_y + 4, login_border_x + 2, "Password:")
+        pass_str = "Password:"
         pass_input = ""
-        stdscr.move(login_border_y + 4, login_border_x + 12)
+        # Password input position
+        pass_input_y = login_border_y + 4
+        pass_input_x = login_border_x + 2 + len(pass_str) + 1
+        
+        stdscr.addstr(pass_input_y, login_border_x + 2, pass_str)
+        stdscr.move(pass_input_y, pass_input_x)
 
-        # TODO: Optimize this shitty `while` with a function too
+        # Gets the input
         while True:
             key = stdscr.getch()
 
@@ -134,13 +142,13 @@ def login_screen(stdscr):
             elif key == 127:
                 if pass_input:
                     pass_input = pass_input[:-1]
-                    stdscr.addstr(login_border_y + 4, login_border_x + 12, " " * 20)
-                    stdscr.addstr(login_border_y + 4, login_border_x + 12, "*" * len(pass_input))
-                    stdscr.move(login_border_y + 4, login_border_x + 12 + len(pass_input))
+                    stdscr.addstr(pass_input_y, pass_input_x, " " * 20)
+                    stdscr.addstr(pass_input_y, pass_input_x, "*" * len(pass_input))
+                    stdscr.move(pass_input_y, pass_input_x + len(pass_input))
             else:
                 pass_input += chr(key)
-                stdscr.addstr(login_border_y + 4, login_border_x + 12, "*" * len(pass_input))
-                stdscr.move(login_border_y + 4, login_border_x + 12 + len(pass_input))
+                stdscr.addstr(pass_input_y, pass_input_x, "*" * len(pass_input))
+                stdscr.move(pass_input_y, pass_input_x + len(pass_input))
             
         # Auth
         if user_input == VALID_USERNAME and pass_input == VALID_PASSWORD:
@@ -172,8 +180,6 @@ def main(stdscr):
     # Disable cursor
     curses.curs_set(0)
 
-
-    # https://docs.python.org/3/library/curses.html#curses.has_colors
     # Checks if the terminal can display colors
     if curses.has_colors():
         curses.start_color()
